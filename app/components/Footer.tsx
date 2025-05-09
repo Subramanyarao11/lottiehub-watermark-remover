@@ -13,7 +13,7 @@ export default function Footer() {
           </div>
           <div className="mt-4 md:mt-0 flex items-center space-x-4">
             <a
-              href="https://github.com"
+              href="https://github.com/Subramanyarao11/lottiehub-watermark-remover"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-gray-900 transition-colors"
