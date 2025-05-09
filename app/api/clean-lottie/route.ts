@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { removeLottieLabWatermark } from '@/app/lib/lottie-cleaner';
 import { NextResponse } from 'next/server';
 
