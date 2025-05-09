@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div>
-            <p className="text-gray-700 font-medium">&copy; {new Date().getFullYear()} Lottie Watermark Remover</p>
+            <p className="text-gray-700 font-medium">&copy; {new Date().getFullYear()} LottieLab Watermark Remover</p>
             <p className="text-gray-500 text-sm mt-1">
               This tool is for educational purposes. Always respect copyright and licensing.
             </p>

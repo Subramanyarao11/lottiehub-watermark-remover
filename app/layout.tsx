@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-    title: 'Lottie Watermark Remover',
+    title: 'LottieLab Watermark Remover',
     description: 'Remove LottieLab watermarks from your Lottie animation files',
   };
 

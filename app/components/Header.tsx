@@ -9,7 +9,7 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <LucideAnimation className="h-8 w-8" />
             <div>
-              <h1 className="text-3xl font-bold">Lottie Watermark Remover</h1>
+              <h1 className="text-3xl font-bold">LottieLab Watermark Remover</h1>
               <p className="mt-1 text-indigo-100">Clean your Lottie animations in seconds</p>
             </div>
           </div>
