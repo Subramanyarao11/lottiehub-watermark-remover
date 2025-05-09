@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { CloudLightningIcon as LucideAnimation } from "lucide-react"
+import { SparklesIcon } from "lucide-react"
 
 export default function Header() {
   return (
@@ -7,7 +7,7 @@ export default function Header() {
       <div className="container mx-auto px-4 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <LucideAnimation className="h-8 w-8" />
+            <SparklesIcon className="h-8 w-8" />
             <div>
               <h1 className="text-3xl font-bold">LottieLab Watermark Remover</h1>
               <p className="mt-1 text-indigo-100">Clean your Lottie animations in seconds</p>

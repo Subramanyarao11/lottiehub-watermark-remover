@@ -46,7 +46,7 @@ export default function FAQ() {
           {faqItems.map((item, index) => (
             <div key={index} className="mb-4">
               <button
-                className={`w-full text-left p-4 flex justify-between items-center rounded-lg ${
+                className={`w-full text-left p-4 flex justify-between items-center rounded-lg cursor-pointer transition-colors ${
                   openIndex === index ? "bg-indigo-50" : "bg-white hover:bg-gray-50"
                 } border border-gray-200 transition-colors`}
                 onClick={() => toggleItem(index)}

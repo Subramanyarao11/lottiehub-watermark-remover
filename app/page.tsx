@@ -106,7 +106,7 @@ export default function Home() {
                       <p className="mt-1">Your Lottie file has been cleaned successfully.</p>
                       <button
                         onClick={handleDownload}
-                        className="mt-3 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                        className="mt-3 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 cursor-pointer"
                       >
                         Download Cleaned File
                       </button>

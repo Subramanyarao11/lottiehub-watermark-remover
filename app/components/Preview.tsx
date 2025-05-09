@@ -1,56 +1,72 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import lottie, { type AnimationItem } from "lottie-web"
 import { Play, Pause, RotateCcw } from "lucide-react"
+import type { AnimationItem } from "lottie-web"
 
 export default function Preview({ file, title }: { file: File; title: string }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const animationRef = useRef<AnimationItem | null>(null)
   const [isPlaying, setIsPlaying] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    if (!file || !containerRef.current) return
+    setIsMounted(true)
+  }, [])
 
-    const reader = new FileReader()
+  useEffect(() => {
+    if (!isMounted || !file || !containerRef.current) return
 
-    reader.onload = (e) => {
+    const initLottie = async () => {
       try {
-        const result = e.target?.result
-        if (typeof result !== "string") return
-        const animationData = JSON.parse(result)
+        const lottieModule = await import("lottie-web")
+        const lottie = lottieModule.default
 
-        if (animationRef.current) {
-          animationRef.current.destroy()
+        const reader = new FileReader()
+
+        reader.onload = (e) => {
+          try {
+            const result = e.target?.result
+            if (typeof result !== "string") return
+            const animationData = JSON.parse(result)
+
+            if (animationRef.current) {
+              animationRef.current.destroy()
+            }
+
+            if (!containerRef.current) return
+
+            animationRef.current = lottie.loadAnimation({
+              container: containerRef.current,
+              renderer: "svg",
+              loop: true,
+              autoplay: true,
+              animationData,
+            })
+
+            setIsPlaying(true)
+            setIsLoaded(true)
+          } catch (err) {
+            console.error("Error loading Lottie animation:", err)
+            setIsLoaded(false)
+          }
         }
 
-        if (!containerRef.current) return
-
-        animationRef.current = lottie.loadAnimation({
-          container: containerRef.current,
-          renderer: "svg",
-          loop: true,
-          autoplay: true,
-          animationData,
-        })
-
-        setIsPlaying(true)
-        setIsLoaded(true)
+        reader.readAsText(file)
       } catch (err) {
-        console.error("Error loading Lottie animation:", err)
-        setIsLoaded(false)
+        console.error("Error importing lottie-web:", err)
       }
     }
 
-    reader.readAsText(file)
+    initLottie()
 
     return () => {
       if (animationRef.current) {
         animationRef.current.destroy()
       }
     }
-  }, [file])
+  }, [file, isMounted])
 
   const togglePlay = () => {
     if (!animationRef.current) return
