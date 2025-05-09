@@ -1,4 +1,13 @@
-export function removeLottieLabWatermark(data) {
+interface LottieLayer {
+  ind?: number;
+  [key: string]: any;
+}
+
+interface LottieData {
+  layers: LottieLayer[];
+}
+
+export function removeLottieLabWatermark(data: LottieData) {
     if (!data.layers || !Array.isArray(data.layers)) {
       throw new Error('Invalid Lottie file format');
     }
@@ -12,7 +21,7 @@ export function removeLottieLabWatermark(data) {
     if (filteredLayers.length === originalLayerCount) {
 
       const highestNormalInd = Math.max(...data.layers
-        .filter(layer => layer.ind < 1000000)
+        .filter(layer => layer.ind !== undefined && layer.ind < 1000000)
         .map(layer => layer.ind || 0), 0);
 
       const secondFilterAttempt = data.layers.filter(layer =>

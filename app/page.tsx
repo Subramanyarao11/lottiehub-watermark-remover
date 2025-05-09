@@ -5,15 +5,14 @@ import Header from './components/Header';
 import FileUploader from './components/FileUploader';
 import Preview from './components/Preview';
 import Footer from './components/Footer';
-;
 
 export default function Home() {
-  const [originalFile, setOriginalFile] = useState(null);
-  const [cleanedFile, setCleanedFile] = useState(null);
+  const [originalFile, setOriginalFile] = useState<File | null>(null);
+  const [cleanedFile, setCleanedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleFileUpload = async (file) => {
+  const handleFileUpload = async (file: File) => {
     if (!file) return;
 
     setOriginalFile(file);
@@ -34,10 +33,7 @@ export default function Home() {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to clean the file');
       }
-
       const data = await response.json();
-
-      // Create a new file from the cleaned data
       const cleanedFileBlob = new Blob([JSON.stringify(data.cleanedData)], {
         type: 'application/json'
       });
@@ -51,7 +47,7 @@ export default function Home() {
       setCleanedFile(cleanedFileObj);
     } catch (err) {
       console.error('Error cleaning file:', err);
-      setError(err.message || 'Failed to process the file');
+      setError(err instanceof Error ? err.message : 'Failed to process the file');
     } finally {
       setIsLoading(false);
     }

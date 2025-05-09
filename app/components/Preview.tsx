@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import lottie from 'lottie-web';
+import lottie, { AnimationItem } from 'lottie-web';
 
-export default function Preview({ file }) {
-  const containerRef = useRef(null);
-  const animationRef = useRef(null);
+export default function Preview({ file }: { file: File }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<AnimationItem | null>(null);
 
   useEffect(() => {
     if (!file || !containerRef.current) return;
@@ -14,14 +14,16 @@ export default function Preview({ file }) {
 
     reader.onload = (e) => {
       try {
-        const animationData = JSON.parse(e.target.result);
+        const result = e.target?.result;
+        if (typeof result !== 'string') return;
+        const animationData = JSON.parse(result);
 
-        // Destroy previous animation if exists
         if (animationRef.current) {
           animationRef.current.destroy();
         }
 
-        // Create new animation
+        if (!containerRef.current) return;
+
         animationRef.current = lottie.loadAnimation({
           container: containerRef.current,
           renderer: 'svg',
@@ -36,7 +38,6 @@ export default function Preview({ file }) {
 
     reader.readAsText(file);
 
-    // Cleanup
     return () => {
       if (animationRef.current) {
         animationRef.current.destroy();
